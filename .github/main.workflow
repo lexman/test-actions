@@ -12,12 +12,12 @@ action "pfisterer/openstreetmap-osmosis-docker/Dockerfile@master" {
 }
 
 action "Dl mirror" {
-  uses = "docker://byrnedo/docker-alpine-curl"
+  uses = "byrnedo/docker-alpine-curl@master"
   runs = "curl https://ftp5.gwdg.de/pub/misc/openstreetmap/planet.openstreetmap.org/pbf/planet-latest.osm.pbf --output planet-latest-mirror.osm.pbf"
 }
 
 action "Dl official" {
-  uses = "docker://byrnedo/docker-alpine-curl"
+  uses = "byrnedo/docker-alpine-curl@master"
   runs = "curl https://planet.osm.org/pbf/planet-latest.osm.pbf --output planet-latest-official.osm.pbf"
 }
 
