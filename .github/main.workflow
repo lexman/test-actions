@@ -13,7 +13,7 @@ action "Dl mirror" {
 
 action "Dl official" {
   uses = "byrnedo/docker-alpine-curl@master"
-  runs = "curl https://planet.osm.org/pbf/planet-latest.osm.pbf"
+  runs = "curl -L https://planet.osm.org/pbf/planet-latest.osm.pbf"
 }
 
 action "Crop to France" {
