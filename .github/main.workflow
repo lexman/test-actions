@@ -1,14 +1,14 @@
 workflow "Test" {
   on = "watch"
   resolves = [
-    "pfisterer/openstreetmap-osmosis-docker@master",
     "docker://debian:jessie-1",
     "docker://debian:jessie-2",
+    "pfisterer/openstreetmap-osmosis-docker/Dockerfile@master",
   ]
 }
 
-action "pfisterer/openstreetmap-osmosis-docker@master" {
-  uses = "pfisterer/openstreetmap-osmosis-docker/Dockerfile@master"
+action "pfisterer/openstreetmap-osmosis-docker/Dockerfile@master" {
+  uses = "pfisterer/openstreetmap-osmosis-docker@master"
 }
 
 action "docker://debian:jessie" {
@@ -23,6 +23,10 @@ action "docker://debian:jessie-1" {
 
 action "docker://debian:jessie-2" {
   uses = "docker://debian:jessie"
-  needs = ["docker://debian:jessie", "docker://debian:jessie-1", "pfisterer/openstreetmap-osmosis-docker@master"]
+  needs = [
+    "docker://debian:jessie",
+    "docker://debian:jessie-1",
+    "pfisterer/openstreetmap-osmosis-docker/Dockerfile@master",
+  ]
   runs = "echo The End"
 }
