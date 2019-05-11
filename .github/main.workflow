@@ -1,14 +1,9 @@
 workflow "Test" {
   on = "watch"
   resolves = [
-    "docker://debian:jessie-2",
-    "pfisterer/openstreetmap-osmosis-docker/Dockerfile@master",
     "Dl official",
+    "Crop to France",
   ]
-}
-
-action "pfisterer/openstreetmap-osmosis-docker/Dockerfile@master" {
-  uses = "pfisterer/openstreetmap-osmosis-docker@master"
 }
 
 action "Dl mirror" {
@@ -21,12 +16,11 @@ action "Dl official" {
   runs = "curl https://planet.osm.org/pbf/planet-latest.osm.pbf"
 }
 
-action "docker://debian:jessie-2" {
-  uses = "docker://debian:jessie"
+action "Crop to France" {
   needs = [
-    "pfisterer/openstreetmap-osmosis-docker/Dockerfile@master",
     "Dl mirror",
     "Dl official",
   ]
-  runs = "echo The End"
+  uses = "pfisterer/openstreetmap-osmosis-docker@master"
+  args = "--read-pbf planet-latest-official.osm.pbf --bounding-box top=51.15 left=-5.2 bottom=42.3 right=8.32 --write-pbf planet-france.osm.pbf"
 }
